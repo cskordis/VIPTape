@@ -17,6 +17,9 @@ Version 2 and up, re-written to accomodate ELF II, HUG 1802/ETI-660/HEC-1802 and
 
 ![VIPTape v2a](https://github.com/cskordis/VIPTape/blob/main/Images/Directory%20List.JPG)
 
+![VIPTape v2a Keyboard Entry](https://github.com/cskordis/VIPTape/blob/main/Images/KeyboardEntryFor%20SaveFile.JPG)
+
+
 
 
 
