@@ -2,8 +2,9 @@
 
 This project was created by Josh Bensadon that allows you to load and save code via the cassette port to and from the Cosmac VIP.
 
-Firmware version 1.1 only does VIP computers
-Firmware version 2 and up, re-written to accomodate ELF II, HUG 1802/ETI-660/HEC-1802 and VIP computers.
+Version 1.1 only does VIP computers.
+
+Version 2 and up, re-written to accomodate ELF II, HUG 1802/ETI-660/HEC-1802 and VIP computers.
 
 ## Hardware modifications for version 2:
 
