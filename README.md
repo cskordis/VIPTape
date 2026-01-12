@@ -12,7 +12,6 @@ Version 2 and up, re-written to accomodate ELF II, HUG 1802/ETI-660/HEC-1802 and
 
 2. The input pin on the Mega was moved from A8 to D18 to allow correct ISR to work.
 
-
 ![VIPTape v2a Splash](https://github.com/cskordis/VIPTape/blob/main/Images/TitleScreen.JPG)
 
 ![VIPTape v2a](https://github.com/cskordis/VIPTape/blob/main/Images/Directory%20List.JPG)
