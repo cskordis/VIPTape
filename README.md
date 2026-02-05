@@ -6,7 +6,7 @@ Version 1.1 only does VIP computers.
 
 Version 2 and up, re-written to accomodate ELF II, HUG 1802/ETI-660/HEC-1802 and VIP computers.
 
-## Hardware modifications for version 2:
+## Hardware modifications for version 2a:
 
 1. Enhance the LM358 op amp circuit to utilize the first op amp as a low pass filtering amp for >2500hz frequencies and second op amp as a comparator to deliver nicely formed square wares that are 3.5 v p/p.
 
