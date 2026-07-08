@@ -10,6 +10,8 @@ Version 2o is only for the ORAO computer protocol.
 
 Version 3 added ORAO computer protocol.
 
+Version 4 added COMix 35 protocol. Will load comx files that are Basic and Basic with machine code. It will not load all machine code.
+
 ## Hardware modifications for version 2b:
 
 1. Enhance the LM358 op amp circuit to utilize the first op amp as a low pass filtering amp for >2500hz frequencies and second op amp as a comparator to deliver nicely formed square wares that are 3.5 v p/p.
