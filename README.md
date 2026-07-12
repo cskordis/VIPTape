@@ -10,7 +10,9 @@ Version 2o is only for the ORAO computer protocol.
 
 Version 3 added ORAO computer protocol.
 
-Version 4 added COMix 35 protocol. Will load comx files that are Basic and Basic with machine code. It will not load all machine code.
+Version 4 added COMiX 35 protocol. Will load comx files that are Basic and Basic with machine code. It will not load all machine code.
+
+Version 4a SD directories and files listed alphabetically
 
 ## Hardware modifications for version 2b:
 
