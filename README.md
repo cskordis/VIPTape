@@ -14,6 +14,8 @@ Version 4 added COMiX 35 protocol. Will load comx files that are Basic and Basic
 
 Version 4a SD directories and files listed alphabetically
 
+Version 4b added Heathkit ET 3400 protocol for machine code and basic
+
 ## Hardware modifications for version 2b:
 
 1. Enhance the LM358 op amp circuit to utilize the first op amp as a low pass filtering amp for >2500hz frequencies and second op amp as a comparator to deliver nicely formed square wares that are 3.5 v p/p.
