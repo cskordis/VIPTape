@@ -15,6 +15,9 @@ Version 4 added COMiX 35 protocol. Will load comx files that are Basic and Basic
 Version 4a SD directories and files listed alphabetically
 
 Version 4b added Heathkit ET 3400 protocol for machine code and basic
+           Will load and save Basic as *.BAS and machine code as *.S19 format
+           
+Version 4c Added plain hex delimited by space file with extension *.txt for the ET3400
 
 ## Hardware modifications for version 2b:
 
