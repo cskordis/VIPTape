@@ -19,6 +19,10 @@ Version 4b added Heathkit ET 3400 protocol for machine code and basic
            
 Version 4c Added plain hex delimited by space file with extension *.txt for the ET3400
 
+Version 5  Added TRS-80 Pocket Computer PC1 and PC2
+
+Version 5a Corrected messaging when processing large programs
+
 ## Hardware modifications for version 2b:
 
 1. Enhance the LM358 op amp circuit to utilize the first op amp as a low pass filtering amp for >2500hz frequencies and second op amp as a comparator to deliver nicely formed square wares that are 3.5 v p/p.
