@@ -1,0 +1,449 @@
+10 REM **********************
+20 REM *                    *
+30 REM *     GAME NIM       *
+40 REM *                    *
+50 REM **********************
+60 REM **********************
+70 REM * Salvaged from old  *
+80 REM * Valpo Data General *
+90 REM * MV/8000 by RAK     *
+100 REM * Apple II version   *
+110 REM * RTK, 01/93.        *
+120 REM **********************
+130 REM **********************
+140 REM * Adaptation for     *
+150 REM * ORAO BASIC by      *
+160 REM * Peri| _eljko       *
+170 REM * peraelf@gmail.com  *
+180 REM **********************
+190 REM **********************
+200 REM *                    *
+210 REM * N                  *
+220 REM * NUMBER OF PILES    *
+230 REM *                    *
+240 REM * P(I)               *
+250 REM * NUMBER OF          *
+260 REM * OBJECTS IN PILE(I) *
+270 REM *                    *
+280 REM * B(I,J)             *
+290 REM * P(I) IN BASE 2     *
+300 REM *                    *
+310 REM * D(J)               *
+320 REM * B(1,J) + ... +     *
+330 REM * B(N,J) IN BASE 2   *
+340 REM *                    *
+350 REM * M                  *
+360 REM * MAXIMUM NUMBER     *
+370 REM * OF PILES 9         *
+380 REM *                    *
+390 REM * THE MAXIMUM PILE   *
+400 REM * SIZE IS 9          *
+410 REM *                    *
+420 REM **********************
+430 REM
+440 REM ***  START  ***
+450 REM
+460 CLEAR
+470 MODE 0 : INV 0
+480 VDU 0,31,0,31
+490 CLS
+500 REM
+510 REM INITIALIZE BASIC PARAMETERS
+520 REM
+530 M=9
+540 DIM P(10),B(10,5),D(5)
+550 REM
+560 REM GAME LOGO
+570 REM
+580 CLS
+590 PRINT "********************************";
+600 PRINT "*                              *";
+610 PRINT "*      G A M E    N I M        *";
+620 PRINT "*                              *";
+630 PRINT "********************************";
+640 VDU 0,31,5,31
+650 REM
+660 REM INSTRUCTIONS PART I
+670 REM
+680 CLS
+690 CUR 0,10
+700 PRINT "    Do You need instructions"
+710 PRINT "         ( Yes OR No )";
+720 INKEYA$
+730 IF A$="N" OR A$="n" THEN 3600
+740 IF A$<>"Y" AND A$<>"y" THEN 720
+750 REM
+760 REM INSTRUCTIONS PART II
+770 REM
+780 CLS
+790 CUR 0,6
+800 PRINT "   Nim is played with piles"
+810 PRINT
+820 PRINT "   of stars. You decide how"
+830 PRINT
+840 PRINT "   many piles and how many"
+850 PRINT
+860 PRINT "   stars in each pile."
+870 PRINT
+880 PRINT "   When it is Your turn,"
+890 PRINT
+900 PRINT "   You may take as many stars"
+910 PRINT
+920 PRINT "   as You like, but from one"
+930 PRINT
+940 PRINT "   pile only. The player who"
+950 PRINT
+960 PRINT "   takes the last star wins."
+970 GOSUB 4390
+980 REM
+990 REM INSTRUCTIONS PART III
+1000 REM
+1010 CLS
+1020 CUR 0,6
+1030 PRINT "   For example,"
+1040 PRINT
+1050 PRINT "   suppose the piles are :"
+1060 PRINT
+1070 PRINT "   Pile 1:  * *"
+1080 PRINT
+1090 PRINT "   Pile 2:  * * *"
+1100 PRINT
+1110 PRINT "   Pile 3:  * *"
+1120 PRINT
+1130 PRINT "   To take three stars"
+1140 PRINT
+1150 PRINT "   from pile 2"
+1160 PRINT
+1170 PRINT "   You move 3,2 that leaves"
+1180 PRINT
+1190 PRINT "   Pile 1:  * *"
+1200 PRINT
+1210 PRINT "   Pile 2:"
+1220 PRINT
+1230 PRINT "   Pile 3:  * *"
+1240 GOSUB 4390
+1250 REM
+1260 REM INSTRUCTIONS PART IV
+1270 REM
+1280 CLS
+1290 CUR 0,6
+1300 PRINT "  After Your move 3,2"
+1310 PRINT
+1320 PRINT "  piles are :"
+1330 PRINT
+1340 PRINT "  Pile 1:  * *"
+1350 PRINT
+1360 PRINT "  Pile 2:"
+1370 PRINT
+1380 PRINT "  Pile 3:  * *"
+1390 PRINT
+1400 PRINT "  Now if I move 2,3"
+1410 PRINT
+1420 PRINT "  Taking 2 stars from pile 2"
+1430 PRINT
+1440 PRINT "  You win by moving 2,1"
+1450 PRINT
+1460 PRINT "  Take all stars from pile 1 !!"
+1470 PRINT
+1480 PRINT "        HERE WE GO ..."
+1490 GOSUB 4390
+1500 CLS
+1510 REM
+1520 REM FOR A NEW PLAYER SET
+1530 REM N=3 THREE PILES
+1540 REM P(1)=3 PILE 1 THREE STARS
+1550 REM P(2)=5 PILE 2 FIVE STARS
+1560 REM P(3)=7 PILE 3 SEVEN STARS
+1570 REM
+1580 N=3
+1590 P(1)=3
+1600 P(2)=5
+1610 P(3)=7
+1620 REM
+1630 REM PRINT INITIAL PILES
+1640 REM
+1650 GOSUB 4240
+1660 REM
+1670 REM WHO MOVES FIRST?
+1680 REM
+1690 CUR 0,10+N
+1700 PRINT "    Do You want to go first"
+1710 PRINT "         ( Yes or No )"
+1720 INKEYA$
+1730 IF A$="Y" OR A$="y" THEN 1830
+1740 IF A$<>"N" AND A$<>"n" THEN 1720
+1750 CUR 0,10+N
+1760 PRINT "                              "
+1770 PRINT "                              "
+1780 PRINT "                              "
+1790 REM
+1800 REM THE COMPUTER MOVES FIRST
+1810 REM
+1820 GOTO 2010
+1830 CUR 0,10+N
+1840 PRINT "                              "
+1850 PRINT "                              "
+1860 PRINT "                              "
+1870 REM
+1880 REM THE HUMAN MOVES
+1890 REM
+1900 GOSUB 2870
+1910 REM
+1920 REM PRINT THE PILES
+1930 REM
+1940 GOSUB 4070
+1950 REM
+1960 REM CHECK WHETHER THE HUMAN WON
+1970 REM
+1980 GOSUB 3180
+1990 IF T=0 THEN 3260
+2000 REM
+2010 REM THE COMPUTER MOVES
+2020 REM
+2030 GOSUB 2190
+2040 REM
+2050 REM CHECK WHEATHER
+2060 REM THE COMPUTER WON
+2070 REM
+2080 GOSUB 3180
+2090 IF T=0 THEN 3380
+2100 REM
+2110 REM PRINT THE PILES
+2120 REM
+2130 GOSUB 4070
+2140 REM
+2150 REM THE HUMAN MOVES
+2160 REM
+2170 GOTO 1880
+2180 REM
+2190 REM THE COMPUTER MOVES
+2200 REM
+2210 REM INITIALIZE
+2220 FOR J=1 TO 5
+2230 D(J)=0
+2240 NEXT J
+2250 REM
+2260 REM ADD P(1) + ... +
+2270 REM P(N) IN BASE 2
+2280 REM
+2290 FOR I=1 TO N
+2300 T=P(I)
+2310 FOR J=5 TO 1 STEP -1
+2320 B(I,J)=INT(T/2`(J-1))
+2330 D(J)=ABS(D(J)-B(I,J))
+2340 T=T-B(I,J)*2`(J-1)
+2350 NEXT J
+2360 NEXT I
+2370 REM
+2380 REM FIND THE LARGEST I
+2390 REM SUCH THAT D(I)=1
+2400 REM
+2410 T=0
+2420 FOR I=5 TO 1 STEP -1
+2430 T=T+I*D(I)*(1-SGN(T))
+2440 NEXT I
+2450 REM
+2460 REM IF T>0
+2470 REM THEN THE WINNING MOVE IS
+2480 REM D(T)*2`(T-1) +
+2490 REM D(T-1)*2`(T-2)*
+2500 REM SGN(B(S,T-1)-.5)
+2510 REM + ... +
+2520 REM D(1)*SGN(B(S,1)-.5)
+2530 REM FROM ANY PILE I
+2540 REM SUCH THAT B(I,T)=1
+2550 REM IF T=0 THEN REMOVE 1
+2560 REM FROM ANY NON-EMPTY PILE
+2570 REM
+2580 IF T>0 THEN 2670
+2590 S=INT(N*RND(1))+1
+2600 IF P(S)=0 THEN 2590
+2610 T=1
+2620 GOTO 2780
+2630 REM
+2640 REM FIND I SO
+2650 REM THAT B(I,J)=1
+2660 REM
+2670 S=0
+2680 FOR I=1 TO N
+2690 S=S+I*B(I,T)*(1-SGN(S))
+2700 NEXT I
+2710 IF T=1 THEN 2780
+2720 W=0
+2730 FOR J=T-1 TO 1 STEP -1
+2740 W=W+D(J)*2`(J-1)*SGN(B(S,J)-.5)
+2750 NEXT J
+2760 T=2`(T-1)+W
+2770 REM
+2780 REM THE COMPUTER MOVES
+2790 REM
+2800 CUR 0,7
+2810 PRINT "                              "
+2820 CUR 0,7
+2830 PRINT "     I move";T;",";S
+2840 P(S)=P(S)-T
+2850 RETURN
+2860 REM
+2870 REM THE HUMAN MOVES
+2880 REM
+2890 CUR 0,10+N
+2900 PRINT "                              "
+2910 CUR 0,10+N
+2920 INPUT "   Your Move : ";T$,S$
+2930 PRINT "                              "
+2940 PRINT "                              "
+2950 PRINT "                              "
+2960 PRINT "                              "
+2970 T=VAL(T$)
+2980 S=VAL(S$)
+2990 IF S>0 OR S<N+1 THEN 3020
+3000 IF T>0 OR T<11 THEN 3060
+3010 GOTO 2870
+3020 IF S=SGN(N+1-S)*SGN(S)+INT(S-1) THEN 3060
+3030 CUR 0,12+N
+3040 PRINT "   Which pile do You want !?"
+3050 GOTO 2870
+3060 IF P(S)>=INT(T) THEN 3130
+3070 CUR 0,12+N
+3080 PRINT "   Sorry, but You can't take"
+3090 PRINT
+3100 PRINT "     ";T;"stars from pile";S
+3110 GOTO 2870
+3120 REM
+3130 REM VALID INPUT
+3140 REM
+3150 P(S)=(P(S)-INT(T))*SGN(1+SGN(P(S)-INT(T)))
+3160 RETURN
+3170 REM
+3180 REM CHECK FOR A WINNER
+3190 REM
+3200 T=0
+3210 FOR I=1 TO N
+3220 T=T+P(I)
+3230 NEXT I
+3240 RETURN
+3250 REM
+3260 REM THE HUMAN WON
+3270 REM
+3280 PRINT "********************************";
+3290 PRINT "*                              *";
+3300 PRINT "*     ! CONGRATULATIONS !      *";
+3310 PRINT "*                              *";
+3320 PRINT "*           YOU WON            *";
+3330 PRINT "*                              *";
+3340 PRINT "********************************";
+3350 GOSUB 4390
+3360 GOTO 3500
+3370 REM
+3380 REM THE COMPUTER WON
+3390 REM
+3400 CUR 0,10+N
+3410 PRINT "********************************";
+3420 PRINT "*                              *";
+3430 PRINT "*           I WON!             *";
+3440 PRINT "*                              *";
+3450 PRINT "*    Better luck next time.    *";
+3460 PRINT "*                              *";
+3470 PRINT "********************************";
+3480 GOSUB 4390
+3490 REM
+3500 REM ANOTHER GAME?
+3510 REM
+3520 CLS
+3530 CUR 0,10
+3540 PRINT "   Do You want to play again?"
+3550 PRINT "        ( Yes or No )";
+3560 INKEYA$
+3570 IF A$="N" OR A$="n" THEN 4470
+3580 IF A$<>"Y" AND A$<>"y" THEN 3560
+3590 REM
+3600 REM SET UP THE PILES
+3610 REM
+3620 GOSUB 3650
+3630 GOTO 1630
+3640 REM
+3650 REM INPUT THE NUMBER
+3660 REM OF PILES AND THE
+3670 REM SIZE OF EACH PILE
+3680 REM
+3690 CLS
+3700 CUR 0,10
+3710 PRINT " How many piles do you want ?"
+3720 PRINT
+3730 PRINT "        < 1 - 9 >           "
+3740 PRINT
+3750 PRINT "    Number of piles = ";
+3760 INKEY X
+3770 N=X
+3780 IF N<1 OR N>M THEN 3760
+3790 PRINT X
+3800 PRINT
+3810 PRINT " How many stars in pile <0-9> ?"
+3820 PRINT
+3830 FOR I=1 TO N
+3840 PRINT "    Pile ";I;"= ";
+3850 X=-1
+3860 INKEY X$
+3870 P(I)=VAL(X$)
+3880 IF (X$<>0 AND P(I)=0) OR P(I)>9 THEN 3860
+3890 PRINT X
+3900 NEXT I
+3910 REM
+3920 REM CHECK THAT NOT
+3930 REM ALL THE PILES ARE EMPTY
+3940 REM
+3950 GOSUB 3180
+3960 IF T>0 THEN 4030
+3970 PRINT "    How can we play if all"
+3980 PRINT "    the piles are empty ?"
+3990 PRINT
+4000 GOSUB 4390
+4010 GOTO 3650
+4020 REM
+4030 REM
+4040 REM
+4050 RETURN
+4060 REM
+4070 REM PRINT THE PILES
+4080 REM
+4090 FOR I=1 TO N
+4100 CUR 15,8+I
+4110 J=0
+4120 IF P(I)=0 THEN 4160
+4130 FOR J=1 TO P(I)
+4140 PRINT "*";
+4150 NEXT J
+4160 FOR K=J TO 10
+4170 PRINT " ";
+4180 NEXT K
+4190 PRINT
+4200 NEXT I
+4210 PRINT
+4220 RETURN
+4230 REM
+4240 REM PRINT INITIAL PILES
+4250 REM
+4260 CLS
+4270 FOR I=1 TO N
+4280 CUR 0,8+I
+4290 PRINT TAB(5);"Pile ";I;": ";
+4300 IF P(I)=0 THEN 4340
+4310 FOR J=1 TO P(I)
+4320 PRINT "*";
+4330 NEXT J
+4340 PRINT
+4350 NEXT I
+4360 PRINT
+4370 RETURN
+4380 REM
+4390 REM
+4400 REM
+4410 CUR 0,30
+4420 PRINT "     hit any key to continue"
+4430 INKEYA$
+4440 IF A$="" THEN 4430
+4450 RETURN
+4460 REM
+4470 REM PROGRAM END
+4480 REM
+4490 END

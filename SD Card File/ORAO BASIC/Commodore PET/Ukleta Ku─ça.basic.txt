@@ -1,0 +1,546 @@
+10 REM  *************************
+11 REM  *      Ukleta kuća      *
+12 REM  *************************
+13 REM      'Haunted House'
+14 REM             by
+15 REM        Jenny Tyler
+16 REM             &
+17 REM        Les Howarth
+18 REM  *************************
+19 REM    adaptacija za računar
+20 REM           ORAO
+21 REM       Željko Perić
+22 REM    peraelf@gmail.com
+23 REM        05.05.2019
+24 REM  *************************
+25 REM
+26 VDU
+27 CLEAR
+28 RESTORE
+29 CLS
+30 A=0:P=0:P$="":P1$="":R=100:K=0
+31 V=27:W=36:G=18:
+32 DIM R$(63),D$(63),O$(W),V$(V)
+33 DIM C(W),L(G),F(W)
+34 GOSUB 417
+35 PRINT "==============================="
+36 PRINT "         UKLETA KUĆA          "
+37 PRINT "==============================="
+38 PRINT
+39 PRINT "Nalazim se :"
+40 PRINT "------------"
+41 VDU 0,31,6,31
+42 CLS
+43 PRINT
+44 PRINT D$(RM)
+45 PRINT:PRINT
+46 IF RM=57 AND S=8 THEN 402
+47 PRINT "Pravci kretanja :  ";
+48 FOR I=1 TO LEN(R$(RM))
+49 PRINT MID$(R$(RM),I,1);" ";
+50 NEXT I
+51 PRINT
+52 PRINT "================="
+53 PRINT
+54 FOR I=1 TO G
+55 IF L(I)=RM AND F(I)=0 THEN PRINT "Vidim ";O$(I); "."
+56 NEXT I
+57 PRINT
+58 PRINT M$:M$ = "Šta?!":PRINT
+59 PRINT "Šta da radim :"
+60 PRINT "--------------"
+61 INPUT Q$
+62 IF Q$="" THEN 68
+63 REM proveri velika slova
+64 M$="Primam naredbe napisane         "
+65 M$=M$+"isključivo malim slovima !"
+66 P=ASC(LEFT$(Q$,1))
+67 IF P>64 AND P<96 THEN GOTO 42
+68 REM
+69 M$="Šta?!"
+70 PRINT
+71 V$="":W$="":VB=0:OB=0
+72 FOR I=1 TO LEN(Q$)
+73 IF MID$(Q$,I,1)=" " AND V$="" THEN V$=LEFT$(Q$,I-1)
+74 IF MID$(Q$,I+1,I)<>" " AND V$<>"" THEN W$=MID$(Q$,I+1,LEN(Q$)-1)
+75 IF MID$(Q$,I+1,I)<>" " AND V$<>"" THEN I=LEN(Q$)
+76 NEXT I
+77 IF V$="" THEN V$=Q$
+78 FOR I=1 TO V
+79 IF V$=V$(I) THEN VB=I
+80 NEXT I
+81 IF W$="se" OR VB=26 THEN W$="konopac":OB=14:GOTO 85
+82 FOR I=1 TO W
+83 IF W$=O$(I) THEN OB=I
+84 NEXT I
+85 REM  naredba 'kraj'
+86 P$="      *** KRAJ IGRE ***"
+87 IF VB=27 AND W$="igre" THEN PRINT:PRINT P$:END
+88 P$="    *** KRAJ AVANTURE ***"
+89 IF VB=27 AND W$="avanture" THEN PRINT:PRINT P$:END
+90 M$="Kraj čega, igre ili avanture?"
+91 IF VB=27 AND W$="" THEN 42
+92 M$="I "+W$+" ima svoj kraj?!"
+93 FOR I=1 TO 32-LEN(M$)
+94 M$=M$+" "
+95 NEXT I
+96 M$=M$+"Da li ste mislili na kraj       "
+97 M$=M$+"igre ili avanture?"
+98 IF VB=27 AND W$>"" THEN 42
+99 REM *** aveti ***
+100 M$="Usisao sam aveti !!!            "
+101 M$=M$+"Savremen usisivač nema šta..."
+102 IF VB=22 AND OB=10 AND C(10)=1 AND C(11)=1 THEN F(24)=1
+103 IF A>0 AND F(24)=1 THEN A=0:GOTO 42
+104 M$="Sve su bliže i bliže...         "
+105 M$=M$+"Ne mogu da mrdnem."
+106 IF A=1 THEN A=2:GOTO 42
+107 M$="Iiijjjjaaaaooo...               "
+108 M$=M$+"Uuuupooooomooooć!"
+109 IF A=2 THEN A=3:GOTO 42
+110 M$="Odoše, ha ha ha ha haaaaa.      "
+111 M$=M$+"UH.Ovo je bilo blizu."
+112 IF A=3 THEN A=0:GOTO 42
+113 M$="To ne mogu da uradim."
+114 IF W$>"" AND OB=0 THEN M$="Glupo!":R=R-1
+115 IF VB=0 THEN VB=V+1
+116 IF W$="" THEN M$="Rečenica obično ima subjekat i  predikat."
+117 IF VB>V AND OB>0 THEN M$=Q$+" ti!"
+118 IF VB>V AND OB=0 THEN M$="Ne radim besmislice!":R=R-1
+119 IF VB<V AND OB>0 AND C(OB)=0 THEN M$="Nemam "+W$+"."
+120 P$="Napadaju šišmiši!"
+121 IF F(26)=1 AND RM=13 AND VB<>21 AND VB>2 THEN M$=P$:GOTO 42
+122 IF RM=44 AND RND(7)>.5 THEN F(27)=1
+123 IF F(0)=1 THEN LL=LL-1
+124 IF LL<1 THEN F(0)=0
+125 IF VB>7 THEN 128
+126 ON VB GOSUB 138,153,169,169,169,169,169
+127 GOTO 135
+128 IF VB>14 THEN 131
+129 ON VB-7 GOSUB 169,169,224,224,233,249,281
+130 GOTO 135
+131 IF VB>21 THEN 134
+132 ON VB-14 GOSUB 289,295,308,324,335,345,353
+133 GOTO 135
+134 ON VB-21 GOSUB 360,368,380,383,330,401
+135 IF LL=10 THEN M$="Sveća mi dogoreva!"
+136 IF LL=1 THEN LL=0:M$="Sveća je izgorela!":F(0)=0
+137 GOTO 42
+138 REM naredba 'pomoć'
+139 PRINT "Znam sledeće reči:"
+140 PRINT
+141 P1=0
+142 FOR I=1 TO V
+143 P1=P1+LEN(V$(I))
+144 IF P1>31 THEN PRINT:P1=LEN(V$(I))
+145 PRINT V$(I);
+146 P1=P1+1
+147 IF P1<32 THEN PRINT " ";
+148 IF P1>31 THEN PRINT:P1=0
+149 NEXT I
+150 M$="": PRINT
+151 GOSUB 400
+152 RETURN
+153 REM naredba 'inventar'
+154 PRINT "Nosim:"
+155 PRINT
+156 P1=0
+157 FOR I=1 TO G
+158 IF C(I)<>1 THEN 165
+159 P1=P1+LEN(O$(I))
+160 IF P1>31 THEN PRINT:P1=LEN(O$(I))
+161 PRINT O$(I);
+162 P1=P1+1
+163 IF P1<32 THEN PRINT " ";
+164 IF P1>31 THEN PRINT:P1=0
+165 NEXT I
+166 M$="":PRINT
+167 GOSUB 400
+168 RETURN
+169 REM naredbe za kretanje
+170 D=0
+171 IF OB=0 THEN D=VB-3
+172 IF OB=19 THEN D=1
+173 IF OB=20 THEN D=2
+174 IF OB=21 THEN D=3
+175 IF OB=22 THEN D=4
+176 IF OB=23 THEN D=5
+177 IF OB=24 THEN D=6
+178 IF RM=20 AND D=5 THEN D=1
+179 IF RM=20 AND D=6 THEN D=3
+180 IF RM=22 AND D=6 THEN D=2
+181 IF RM=22 AND D=5 THEN D=3
+182 IF RM=36 AND D=6 THEN D=1
+183 IF RM=36 AND D=5 THEN D=2
+184 P=INT(64*RND(7))
+185 M$="Jaaaooo.Aveti lete unaokolo!"
+186 IF RM=P AND A=0 AND F(27)=1 AND F(24)=0 THEN A=1:RETURN
+187 M$="Odjednom je zahladnelo?!"
+188 IF RM=P-1 OR RM=P+1 THEN RETURN
+189 M$="Nekakva vrelina se oseća?!"
+190 IF RM=P-8 OR RM=P+8 THEN RETURN
+191 M$="Bup!!! Pao sam sa drveta!"
+192 IF F(14)=1 THEN F(14)=0:RETURN
+193 M$="Duhovi mi ne daju da mrdnem!"
+194 IF F(24)=0 AND F(27)=1 AND RM=52 THEN RETURN
+195 M$="Usisao sam duhove!              "
+196 M$=M$+"Sreća da je usisivač sve vreme  "
+197 M$=M$+"bio uključen."
+198 IF F(24)=1 AND F(27)=1 AND RM=52 THEN F(27)=0:RETURN
+199 M$="Osećam magičnu barijeru na      zapadu."
+200 IF RM=45 AND C(1)=1 AND F(34)=0 THEN RETURN
+201 M$="Sasvim je mračno."
+202 IF (RM=26 AND F(0)=0) AND (D=1 OR D=4) THEN RETURN
+203 M$="Zaglibio sam se!???"
+204 IF RM=54 AND C(15)<>1 THEN RETURN
+205 M$ ="Sad malo ti nosi čamac!"
+206 IF C(15)=1 AND NOT(RM=53 OR RM=54 OR RM=55 OR RM=47) THEN RETURN
+207 M$="Ja u mrak ne idem!"
+208 IF (RM>26 AND RM<30) AND F(0)=0 THEN RETURN
+209 M$="Šta?"
+210 F(35)=0:RL=LEN(R$(RM))
+211 FOR I=1 TO RL
+212 U$=MID$(R$(RM),I,1)
+213 IF (U$="N" AND D=1 AND F(35)=0) THEN RM=RM-8:F(35)=1
+214 IF (U$="S" AND D=2 AND F(35)=0) THEN RM=RM+8:F(35)=1
+215 IF (U$="W" AND D=3 AND F(35)=0) THEN RM=RM-1:F(35)=1
+216 IF (U$="E" AND D=4 AND F(35)=0) THEN RM=RM+1:F(35)=1
+217 NEXT I
+218 M$="O.K."
+219 IF F(35)=0 THEN M$="Tuda ne mogu!"
+220 IF D<1 THEN M$="Kud' da idem?"
+221 P$="Vrata su se zalupila!?"
+222 IF RM=41 AND F(23)=1 THEN R$(49)="SW":M$=P$:F(23)=0
+223 RETURN
+224 REM naredba 'uzmi'
+225 IF OB>G THEN M$="Ne mogu da uzmem "+W$:RETURN
+226 IF L(OB)<>RM THEN M$="A gde je?"
+227 IF F(OB)<>0 THEN M$="Koji "+W$+"?"
+228 IF C(OB)=1 THEN M$="Već ga imam!"
+229 IF OB>0 AND L(OB)=RM AND F(OB)=0 THEN C(OB)=1
+230 IF OB>0 AND L(OB)=RM AND F(OB)=0 THEN L(OB)=65:M$="Imam "+W$+"."
+231 IF C(14)=1 THEN K=1
+232 RETURN
+233 REM  naredba 'otvori'
+234 P$="Već sam je otvorio."
+235 IF RM=43 AND OB=28 AND F(29)=1 AND F(28)=0 THEN M$=P$
+236 P$="Otvorio sam fioku"
+237 P=0
+238 IF RM=43 AND OB=28 AND F(29)=1 THEN P=1
+239 IF P=1 AND F(28)=1 THEN F(17)=0:F(28)=0:M$=P$
+240 IF RM=28 AND OB=25 AND F(25)=0 THEN M$="Zaključano!"
+241 IF RM=28 AND OB=25 AND F(25)=1 THEN M$="Već su otvorena."
+242 IF RM=38 AND OB=32 AND F(2)=0 THEN M$="Sanduk je već otvoren."
+243 P$="U sanduku je raspadnuti skelet. "
+244 P$=P$+"nepoznate osobe. Baš užasno."
+245 P1$="U dubokom podrumu sa otvorenim  "
+246 P1$=P1$+"mrtvačkim  sandukom."
+247 IF RM=38 AND OB=32 AND F(2)=1 THEN M$=P$:D$(RM)=P1$:F(2)=0
+248 RETURN
+249 REM  naredba 'istraži'
+250 P$="Na vratima je velika zarđala    "
+251 P$=P$+"brava.Kakav li je tek ključ?"
+252 IF RM=28 AND OB=25 AND F(25)=0 THEN M$=P$
+253 P$="Vrata su otvorena."
+254 IF RM=28 AND OB=25 AND F(25)=1 THEN M$=P$
+255 IF RM=38 AND OB=32 AND F(2)=1 THEN M$="Sanduk je zatvoren."
+256 P$="U sanduku je raspadnuti skelet. "
+257 P$=P$+"nepoznate osobe. Baš užasno."
+258 IF RM=38 AND OB=32 AND F(2)=0 THEN M$=P$
+259 IF RM=3  AND OB=31 THEN M$="Odvratno mi je."
+260 IF RM=32 AND OB=30 AND F(18)=0 THEN M$="Ništa od značaja."
+261 IF RM=32 AND OB=30 AND F(18)=1 THEN F(18)=0:M$="Nešto je tu!!!"
+262 P$="Knjige o mističnim stvarima...  "
+263 P$=P$+"Knjige o tajnim obredima...     "
+264 P$=P$+"Uglavnom ništa interesantno."
+265 IF RM=42 AND OB=33  THEN M$=P$
+266 P$="Lep srednjevekovni pisaći sto.  "
+267 P$=P$+"Vidim fioku."
+268 IF RM=43 AND OB=29 THEN F(29)=1:M$=P$
+269 P$="Zatvorena je."
+270 IF RM=43 AND OB=28 AND F(29)=1 AND F(28)=1 THEN M$=P$
+271 P$="Otvorena je."
+272 IF RM=43 AND OB=28 AND F(29)=1 AND F(28)=0 THEN M$=P$
+273 P$="Ima nešto iza..."
+274 IF RM=43 AND OB=35 AND R$(RM)="W" THEN M$=P$
+275 P$="Zid je probijen sekirom..."
+276 IF RM=43 AND OB=35 AND R$(RM)="WN" THEN M$=P$
+277 REM opis stvari
+278 IF OB>G THEN 280
+279 IF C(OB)=1 OR L(OB)=RM THEN GOSUB 521
+280 RETURN
+281 REM  naredba 'pročitaj'
+282 P$="Da bih pročitao sve ove knjige, "
+283 P$=P$+"trebalo bi mi mnoooogo godina."
+284 IF RM=42 AND OB=33 THEN M$=P$
+285 P$= "Tajanstvena magična reč je      XZANFAR."
+286 IF (OB=3 OR OB=36) AND C(3)=1 AND F(34)=0 THEN M$=P$
+287 IF C(5)=1 AND OB=5 THEN M$="Natpis je na stranom jeziku."
+288 RETURN
+289 REM  naredba 'kaži'
+290 M$="O.K. '"+W$+"'"
+291 IF C(3)=1 AND OB=34 THEN M$="*** ČAROLIJA ***"
+292 IF C(3)=1 AND OB=34 AND RM<>45 THEN RM=INT(64*RND(7))
+293 IF C(3)=1 AND OB=34 AND RM=45 THEN F(34)=1
+294 RETURN
+295 REM  naredba 'kopaj'
+296 IF C(12)=1 THEN M$="Nisam bre fizikalac!"
+297 P$="VEĆ SAM OTKOPAO IZLAZ...!       "
+298 P$=P$+"Ti baš voliš da lopataš?!"
+299 P=0
+300 IF C(12)=1 AND RM=30 AND R$(RM)="NSE" THEN P=1
+301 IF P=1 THEN M$=P$
+302 P=0
+303 P$="Iščupao sam gomilu greda."
+304 P1$="Kraj otvora u zidu."
+305 IF C(12)=1 AND RM=30 AND R$(RM)="NS" THEN P=1
+306 IF P=1 THEN D$(RM)=P1$:R$(RM)="NSE":M$=P$
+307 RETURN
+308 REM  naredba 'upotrebi'
+309 P$="?!??"
+310 IF OB=14 AND C(14)=1 AND RM<>7 THEN M$=P$:RETURN
+311 P$="Nije vreme za igru!!"
+312 IF OB=14 AND K=0 AND RM=7 THEN M$=P$:RETURN
+313 P$="Konopac je pričvršćen."
+314 IF OB=14 AND C(14)=1 AND RM=7 THEN M$=P$:C(14)=0:K=0:L(OB)=RM
+315 P$="WHUUSH...TUP...HMMMM...         "
+316 P$=P$+"Zamalo po palcu na nozi."
+317 IF OB=13 AND C(13)=1 THEN M$=P$
+318 P$="U radnoj sobi sa stolom i       skrivenim separeom."
+319 P1$="Probio sam tanki zid."
+320 P=0
+321 IF OB=13 AND C(13)=1 AND RM=43 AND R$(RM)="W" THEN P=1
+322 IF P=1 THEN R$(RM)="WN":D$(RM)=P$:M$=P1$
+323 RETURN
+324 REM  naredba 'popni se'
+325 P$="Konopac nije pričvršćen!"
+326 IF OB=14 AND C(14)=1 AND K<>0 AND RM=7 THEN M$=P$
+327 P$="Vidim šumu i liticu na jugu."
+328 IF OB=14 AND K=0 AND RM=7 AND F(14)=0 THEN M$=P$:F(14)=1
+329 RETURN
+330 REM  naredba 'siđi'
+331 P=0
+332 IF OB=14 AND K=0 AND RM=7 THEN P=1
+333 IF P=1 AND F(14)=1 THEN M$="Idem dole.":F(14)=0
+334 RETURN
+335 REM  naredba 'upali'
+336 IF OB=10 THEN 360
+337 IF OB=17 AND C(17)=1 AND C(8)=0 THEN M$="Opeći ću se!"
+338 IF OB=17 AND C(17)=1 AND C(9)=0 THEN M$="Čime da je upalim?"
+339 P=0
+340 IF OB=17 AND C(17)=1 AND C(9)=1 AND C(8)=1 THEN P=1
+341 IF P=1 AND LL=0 THEN M$="Izgorela je!"
+342 P$="Jeste da žmirka ali bar svetli!"
+343 IF P=1 AND LL>1 THEN M$=P$:F(0)=1
+344 RETURN
+345 REM  naredba 'ugasi'
+346 P$="Nije ni bio uključen."
+347 IF OB=10 AND F(24)=0 THEN M$=P$
+348 P$="Ugašen je."
+349 IF OB=10 AND F(24)=1 THEN M$=P$:F(24)=0
+350 IF OB=17 AND F(0)=0 THEN M$="Nije ni upaljena."
+351 IF OB=17 AND F(0)=1 THEN F(0)=0:M$="Ugašena je."
+352 RETURN
+353 REM  naredba 'isprskaj'
+354 IF C(16)=1 THEN M$="Hssssss..."
+355 IF C(16)=0 THEN M$="Sa čime da isprskam?"
+356 P=0
+357 IF OB=26 AND C(16)=1 AND F(26)=1 AND RM=13 THEN P=1
+358 IF P=1 THEN F(26)=0:M$="PFFT! Gotovi su!"
+359 RETURN
+360 REM  naredba 'uključi'
+361 P$="Nema baterije."
+362 IF OB=10 AND C(10)=1 AND C(11)=0 THEN M$=P$
+363 P$="Uključen je."
+364 IF OB=10 AND C(10)=1 AND C(11)=1 THEN M$=P$:F(24)=1
+365 P$="Usisao sam duhove."
+366 IF RM=52 AND F(27)=1 AND F(24)=1 THEN M$=P$:F(27)=0
+367 RETURN
+368 REM  naredba 'otključaj'
+369 P$="Već su otključana."
+370 IF RM=28 AND OB=25 AND F(25)=1 THEN M$=P$:RETURN
+371 P=0
+372 IF RM=28 AND OB=25 AND F(25)=0 AND C(18)=1 THEN P=1
+373 IF P=1 THEN F(25)=1:R$(RM)="SEW"
+374 P$="Kraj velikih otvorenih vrata"
+375 P1$="Ključ se okreće."
+376 IF P=1 THEN D$(RM)=P$:M$=P1$
+377 IF RM=28 AND OB=25 AND F(25)=0 AND C(18)=0 THEN P=2
+378 IF P=2 THEN M$="Nemam ključ,nemam kalauz..."
+379 RETURN
+380 REM  naredba 'baci'
+381 IF C(OB)=1 THEN C(OB)=0:L(OB)=RM:M$="Izvršeno!"
+382 RETURN
+383 REM  naredba 'rezultat'
+384 M$=""
+385 S=0
+386 FOR I=1 TO 8
+387 IF C(I)=1 THEN S=S+1
+388 NEXT I
+389 P=0
+390 IF S=8 AND C(15)<>1 AND RM<>57 THEN P=1
+391 IF P=0 THEN 397
+392 IF P=1 THEN PRINT :PRINT "Prikupio sam sve predmete!"
+393 IF P=1 THEN PRINT "Za konačan rezultat samo treba"
+394 IF P=1 THEN PRINT "da odem na početnu lokaciju."
+395 IF P=1 THEN PRINT "Koja ono beše?"
+396 GOTO 400
+397 PRINT "Pronađeno je";S
+398 PRINT "od mogućih 8 predmeta."
+399 PRINT "Rezultat je";R;"poena."
+400 PRINT:INPUT "Pritisni RETURN za nastavak"; Q$
+401 RETURN
+402 REM *** KRAJ PROGRAMA ***
+403 P$="Dolazak ovde duplira rezultat!"
+404 PRINT P$
+405 R=R*2
+406 IF R<=150 THEN PRINT "Rezultat je";R;"poena."
+407 P$="Rezultat je odličnih"
+408 P1$="poena."
+409 IF R>150 AND R<200 THEN PRINT P$;R;P1$
+410 P$="Rezultat je maksimalnih         "
+411 P$=P$+"dvesta poena."
+412 IF R=200 THEN PRINT P$
+413 PRINT "B R A V O. Avantura je završena!"
+414 PRINT
+415 PRINT "    *** KRAJ AVANTURE ***"
+416 END
+417 REM  inicijalizacija nizova
+418 DATA 46,38,35,50,13,18,28,42,10,25,26,4,2,7,47,60,43,32
+419 FOR I = 1 TO G
+420 READ L(I)
+421 NEXT I
+422 DATA "pomoć","inventar","idi","n","s","w","e","u","d"
+423 DATA "uzmi","digni","otvori","istraži","pročitaj"
+424 DATA "kaži","kopaj","upotrebi","popni","upali","ugasi"
+425 DATA "isprskaj","uključi","otključaj","baci","rezultat","siđi"
+426 DATA "kraj"
+427 FOR I = 1 TO V
+428 READ V$(I)
+429 NEXT I
+430 DATA "SE","WE","WE","SWE","WE","WE","SWE","WS"
+431 DATA "NS","SE","WE","NW","SE","W","NE","NSW"
+432 DATA "NS","NS","SE","WE","NWUD","SE","WSUD","NS"
+433 DATA "N","NS","NSE","WE","WE","NSW","NS","NS"
+434 DATA "S","NSE","NSW","S","NSUD","N","N","NS"
+435 DATA "NE","NW","NE","W","NSE","WE","W","NS"
+436 DATA "SE","NSW","E","WE","NW","S","SW","NW"
+437 DATA "NE","NWE","WE","WE","WE","NWE","NWE","W"
+438 FOR I = 0 TO 63
+439 READ R$(I)
+440 NEXT I
+441 DATA "U tamnom uglu."
+442 DATA "U zapuštenoj bašti."
+443 DATA "Kraj velike gomile drva."
+444 DATA "U dvorištu kraj đubreta."
+445 DATA "Na gradilištu."
+446 DATA "U šumi."
+447 DATA "U gustoj šumi."
+448 DATA "Kod suhog drveta."
+449 DATA "Na uglu kuće."
+450 DATA "Na ulazu u kuhinju."
+451 DATA "U kuhinji."
+452 DATA "U perionici sudova."
+453 DATA "U sobi punoj prašine."
+454 DATA "Sa zadnje strane kule."
+455 DATA "Na čistini kraj kuće."
+456 DATA "Na putiću."
+457 DATA "Uz zid kuće."
+458 DATA "Iza trema."
+459 DATA "U tamnom alkovu."
+460 DATA "U mračnoj sobici."
+461 DATA "Na dnu spiralnih stepenica."
+462 DATA "U širokom prolazu."
+463 DATA "Kraj klizavih stepenica."
+464 DATA "Na vrhu grebena."
+465 DATA "Blizu srušenog zida."
+466 DATA "U sumornom prolazu."
+467 DATA "U kućnoj električnoj centrali."
+468 DATA "U svečanom hodniku."
+469 DATA "Kraj okovanih drvenih vrata."
+470 DATA "U svečanoj sali."
+471 DATA "U podrumu sa zatrpanim prozorom."
+472 DATA "Na putu ka litici."
+473 DATA "Kraj eksera na kome visi kaput."
+474 DATA "U ulaznom holu."
+475 DATA "U dnevnoj sobi."
+476 DATA "U tajnom sobičku."
+477 DATA "Kraj strmih mramornih stepenica."
+478 DATA "U trpezariji."
+479 DATA "U dubokom podrumu sa mrtvačkim  sandukom."
+480 DATA "Na putu ka litici."
+481 DATA "U ormanu."
+482 DATA "U predvorju."
+483 DATA "U biblioteci sa mnogo starih i  prašnjavih knjiga."
+484 DATA "U radnoj sobi sa stolom i rupom na zidu."
+485 DATA "U zlokobnoj sobi punoj paučine."
+486 DATA "U ledenom prolazu."
+487 DATA "U avetinjskoj sobi."
+488 DATA "Na strmom putu kraj močvare."
+489 DATA "Na verandi punoj komadića       stakla."
+490 DATA "Pred glavnim ulazom."
+491 DATA "U prednjem tornju."
+492 DATA "U vlažnom hodniku."
+493 DATA "Na gornjoj galeriji."
+494 DATA "Na močvarnoj strani zida."
+495 DATA "U močvari."
+496 DATA "Na raskvašenoj stazi."
+497 DATA "Na krivini."
+498 DATA "Na putu ka gvozdenim vratima."
+499 DATA "Na putu."
+500 DATA "Ispod prednjeg tornja."
+501 DATA "Kod gomile otpalog maltera."
+502 DATA "Kod velikog odronjenog kamena."
+503 DATA "Pokraj propalog svoda."
+504 DATA "Na uglu svijeta."
+505 FOR I = 0 TO 63
+506 READ D$(I)
+507 NEXT I
+508 DATA "sliku","prsten","magičnu cedulju","pehar"
+509 DATA "svitak","novčiće","kip","svećnjak"
+510 DATA "šibice","usisivač","baterije","lopatu"
+511 DATA "sekiru","konopac","čamac","sprej","sveću","ključ"
+512 DATA "na sever","na jug","na zapad","na istok","gore","dole"
+513 DATA "vrata","šišmiše","duhovi","fioku","sto","kaput","đubre"
+514 DATA "sanduk","knjige","xzanfar","zid","čaroliju"
+515 FOR I = 1 TO W
+516 READ O$(I)
+517 NEXT I
+518 F(18)=1:F(17)=1:F(2)=1:F(26)=1:F(27)=1
+519 F(28)=1:F(23)=1:LL=60:RM=57:M$="O.K."
+520 RETURN
+521 REM opis stvari
+522 P$="Slika prikazuje brod zahvaćen   "
+523 P$=P$+"žestokom ulujom. Zastrašujući   "
+524 P$=P$+"prizor."
+525 IF OB=1 THEN M$=P$
+526 P$="Prsten s rubinom.Ima i natpis:  "
+527 P$=P$+"Ako me uzmeš kajaćeš se,        "
+528 P$=P$+"Ako me ne uzmeš kajaćeš se."
+529 IF OB=2 THEN M$=P$
+530 P$="Svetli u mraku.                 "
+531 P$=P$+"Nešto je napisano..."
+532 IF OB=3 THEN M$=P$
+533 IF OB=4 THEN M$="Drveni pehar. Ništa neobično."
+534 P$="Izbledeli kožni svitak.         "
+535 P$=P$+"Nešto piše..."
+536 IF OB=5 THEN M$=P$
+537 IF OB=6 THEN M$="Novčići stari oko 1000 godina."
+538 IF OB=7 THEN M$="Liči na čoveka s kapuljačom."
+539 IF OB=8 THEN M$="Klasičan čirak za jednu sveću."
+540 IF OB=9 THEN M$="Safety matches."
+541 IF OB=10 THEN M$="Savremen, radi na baterije."
+542 P$="SUPER, EXTRA, ULTRA LONG LIFE."
+543 IF OB=11 THEN M$=P$
+544 IF OB=12 THEN M$="Ovakvu ni rudari nisu imali."
+545 IF OB=13 THEN M$="Može da posluži umesto macole."
+546 IF OB=14 THEN M$="Vrengija, dobra za vešala."
+547 P$="Gumeni čamac na naduvavanje."
+548 IF OB=15 THEN M$=P$
+549 IF OB=16 THEN M$="Sprej protiv raznih gamadi."
+550 P$="Po boji bih rekao da je         "
+551 P$=P$+"parafinska, a po ukusu voštana. "
+552 P$=P$+"Ne može da gori duže od 1 sata."
+553 IF OB=17 THEN M$=P$
+554 IF OB=18 THEN M$="Veliki i zarđao."
+555 RETURN

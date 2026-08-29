@@ -1,0 +1,41 @@
+100 REM: ====================================
+110 REM:
+120 REM: DIGITALNI Buttworth FILTER
+130 REM: 2-og reda
+140 REM:
+150 REM:=====================================
+160 REM: FREKVENCIJA REZANJA (-3db)=1000 Hz
+170 REM: Filter je realiziran
+180 REM: BILINEARNOM TRANSFORMACIJOM
+190 REM: analognog filtra uz
+200 REM: T=40E-6 sec ("mapping factor")
+210 REM:
+220 REM: Program generira 256 to{aka odziva
+230 REM: filtra na STEP funkciju
+240 REM:
+250 DIM YN(255)
+260 X=l:W2=0:Wl=0
+270 FOR N=0 TO 255
+280 W0=X+1.649*Wl-0.702*W2
+290 Y=1.323E-2*W0+2.646E-2*Wl+W2*1.323E-2
+300 PRINT N,Y
+310 YN(N)=Y
+320 REM:
+330 REM: REALIZACIJA KA^NJENJA *
+340 REM: W2=W0*(z**(-2))
+350 REM: Wl=W0*(z**(-l))
+360 W2=W1:W1=W0
+370 NEXT N
+380 REM:
+390 REM: CRTANJE ODZIVA
+400 REM:
+410 PRINTCHR$(12)
+420 FOR N=0 TO 50
+430 PLOT N,0
+440 PLOT N,127
+450 NEXT N
+460 FOR N=50 TO 255
+470 PLOT N,l00
+480 PLOT N,YN(N-50)*100+127
+490 NEXT N
+500 END

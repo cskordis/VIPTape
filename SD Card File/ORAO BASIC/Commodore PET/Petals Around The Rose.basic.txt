@@ -1,0 +1,419 @@
+10 REM
+11 REM SECRET OF THE
+12 REM PETALS AROUND THE ROSE
+13 REM
+14 REM adapted for ORAO BASIC
+15 REM by Peri| _eljko
+16 REM peraelf@gmail.com
+17 REM 31.03.2019
+18 REM
+19 REM Intro
+20 REM
+21 CLEAR
+22 VDU
+23 CLS
+24 CUR 0,0
+25 PRINT "                               "
+26 PRINT "                               "
+27 PRINT "                               "
+28 PRINT "        SECRET OF THE          "
+29 PRINT "                               "
+30 PRINT "    PETALS AROUND THE ROSE     "
+31 PRINT "                               "
+32 PRINT "                               "
+33 PRINT "                               "
+34 PRINT "    Adapted for ORAO BASIC     "
+35 PRINT "                               "
+36 PRINT "             by                "
+37 PRINT "                               "
+38 PRINT "        Peri| _eljko           "
+39 PRINT "                               "
+40 PRINT "      peraelf@gmail.com        "
+41 PRINT "                               "
+42 PRINT "          31.03.2019           "
+43 PRINT "                               "
+44 FOR I=1 TO 2000
+45 NEXT I
+46 CUR 0,25
+47 PRINT " Do You need instructions <Y/N>"
+48 INKEY I$
+49 IF I$="Y" OR I$="y" THEN GOSUB 298:GOTO 52
+50 IF I$<>"N" AND I$<>"n" THEN 48
+51 REM
+52 REM Game clues
+53 REM
+54 CLS
+55 CUR 0,0
+56 PRINT "                               "
+57 PRINT "                               "
+58 PRINT "        SECRET OF THE          "
+59 PRINT "                               "
+60 PRINT "    PETALS AROUND THE ROSE     "
+61 PRINT "                               "
+62 PRINT "     The name of the game      "
+63 PRINT "                               "
+64 PRINT "        is significant         "
+65 PRINT "                               "
+66 PRINT "   The score is always even    "
+67 PRINT "                               "
+68 VDU 0,31,12,31
+69 REM
+70 REM Main loop
+71 REM
+72 CLS
+73 S=0
+74 PX=2
+75 PY=14
+76 R=INT(RND(1)*6+3)
+77 FOR N=1 TO R
+78 DN=INT(RND(1)*6+1)
+79 GOSUB 331
+80 NEXT N
+81 DZ=INT(SQR(SIN(.80012)*10))+1
+82 IF DN=DZ THEN S=S+INT(SIN(.5008)*10)/2
+83 DZ=INT(SQR(ATN(1.502)*10))+2
+84 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))+4
+85 PX=8
+86 GOSUB 331
+87 FOR N=1 TO R
+88 DN=INT(RND(1)*6+1)
+89 GOSUB 331
+90 NEXT N
+91 DZ=INT(SQR(SIN(.80012)*10))+1
+92 IF DN=DZ THEN S=S+INT(SIN(.5008)*10)/2
+93 DZ=INT(SQR(ATN(1.502)*10))+2
+94 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))+4
+95 PX=14
+96 GOSUB 331
+97 FOR N=1 TO R
+98 DN=INT(RND(1)*6+1)
+99 GOSUB 331
+100 NEXT N
+101 DZ=INT(SQR(SIN(.80012)*10))+1
+102 IF DN=DZ THEN S=S+INT(SIN(.5008)*10)/2
+103 DZ=INT(SQR(ATN(1.502)*10))+2
+104 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))+4
+105 PX=20
+106 GOSUB 331
+107 FOR N=1 TO R
+108 DN=INT(RND(1)*6+1)
+109 GOSUB 331
+110 NEXT N
+111 DZ=INT(SQR(SIN(.80012)*10))+1
+112 IF DN=DZ THEN S=S+INT(SIN(.5008)*10)/2
+113 DZ=INT(SQR(ATN(1.502)*10))+2
+114 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))+4
+115 PX=26
+116 GOSUB 331
+117 DZ=INT(SQR(ATN(1.502)*10))+2
+118 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))
+119 FOR N=1 TO R
+120 DN=INT(RND(1)*6+1)
+121 GOSUB 331
+122 NEXT N
+123 DZ=INT(SQR(SIN(.80012)*10))+1
+124 IF DN=DZ THEN S=S+INT(SIN(.5008)*10)/2
+125 DZ=INT(SQR(ATN(1.502)*10))+2
+126 IF DN=DZ THEN S=S+INT(COS(.90021)-ATN(.2004))+4
+127 CUR 2,19
+128 PRINT "                               "
+129 CUR 2,19
+130 INPUT "Guess the score ";G
+131 IF INT(G/2)=G/2 THEN 145
+132 FOR I=0 TO 3
+133 CUR 3,10
+134 INV 1
+135 PRINT " The score is always even "
+136 FOR J=0 TO 300
+137 NEXT J
+138 CUR 3,10
+139 INV 0
+140 PRINT " The score is always even  "
+141 FOR J=0 TO 300
+142 NEXT J
+143 NEXT I
+144 GOTO 127
+145 IF G=S THEN T=T+1:GOTO 150
+146 CUR 2,22
+147 PRINT "NO.. This roll's score is";S
+148 T=0
+149 GOTO 155
+150 CUR 2,22
+151 PRINT"...YES..."
+152 CUR 2,24
+153 PRINT"You now have";T;"in a row"
+154 IF T=6 THEN 165
+155 CUR 2,26
+156 PRINT "Want me to roll again <Y/N>"
+157 INKEY I$
+158 IF I$="N" OR I$="n" THEN 161
+159 IF I$<>"Y" AND I$<>"y" THEN 157
+160 GOTO 70
+161 CUR 2,28
+162 PRINT "Please try again sometime"
+163 GOTO 426
+164 REM
+165 REM Secret is discovered
+166 REM
+167 FOR I=1 TO 2000
+168 NEXT I
+169 VDU
+170 CLS
+171 CUR 0,0
+172 PRINT "                               "
+173 PRINT "                               "
+174 PRINT "        SECRET OF THE          "
+175 PRINT "                               "
+176 PRINT "    PETALS AROUND THE ROSE     "
+177 PRINT "                               "
+178 PRINT "                               "
+179 PRINT "       CONGRATULATIONS!        "
+180 PRINT "                               "
+181 PRINT "                               "
+182 PRINT "    You are now qualified to   "
+183 PRINT "                               "
+184 PRINT "    become a duly certified    "
+185 PRINT "                               "
+186 PRINT "                               "
+187 PRINT "    'POTENTATE OF THE ROSE'    "
+188 PRINT "                               "
+189 PRINT "                               "
+190 PRINT "  Are You ready to learn what  "
+191 PRINT "                               "
+192 PRINT " your responsibilities will be "
+193 PRINT "                               "
+194 PRINT "            <Y/N>              "
+195 PRINT "                               "
+196 INKEY I$
+197 IF I$="Y" OR I$="y" THEN 217
+198 IF I$="N" OR I$="n" THEN 200
+199 GOTO 196
+200 CLS
+201 CUR 0,0
+202 PRINT "                               "
+203 PRINT "                               "
+204 PRINT "        SECRET OF THE          "
+205 PRINT "                               "
+206 PRINT "    PETALS AROUND THE ROSE     "
+207 PRINT "                               "
+208 PRINT "                               "
+209 PRINT "      You would have made      "
+210 PRINT "                               "
+211 PRINT "    a lousy potenate anyway    "
+212 PRINT "                               "
+213 PRINT "            the end            "
+214 PRINT "            =======            "
+215 GOTO 426
+216 REM
+217 REM Responsibilities
+218 REM
+219 CLS
+220 CUR 0,0
+221 PRINT "                               "
+222 PRINT "        SECRET OF THE          "
+223 PRINT "                               "
+224 PRINT "    PETALS AROUND THE ROSE     "
+225 PRINT "                               "
+226 PRINT "    Responsibilities           "
+227 PRINT "                               "
+228 PRINT " 1. Never to reveal the secret "
+229 PRINT "    You have learned here today"
+230 PRINT "    to any unworthy person,    "
+231 PRINT "    no matter what they might  "
+232 PRINT "    offer, and may, though even"
+233 PRINT "    they treathen bodily injury"
+234 PRINT "    or maming.                 "
+235 PRINT "                               "
+236 FOR I=1 TO 2000
+237 NEXT I
+238 PRINT " 2. To confer upon worthy      "
+239 PRINT "    individuals,the title and  "
+240 PRINT "    honours of the office of   "
+241 PRINT "    the 'POTENTATE OF THE ROSE'"
+242 PRINT "    the worth of a candidate to"
+243 PRINT "    be judged in the same      "
+244 PRINT "    manner as You have been    "
+245 PRINT "    judged on this occasion.   "
+246 PRINT "                               "
+247 FOR I=1 TO 2000
+248 NEXT I
+249 PRINT " 3. Oh,and get yourself 5 dices"
+250 PRINT "    You can't expect to carry a"
+251 PRINT "    computer around with You   "
+252 PRINT "    everywhere You go.         "
+253 FOR I=1 TO 2000
+254 NEXT I
+255 PRINT "                               "
+256 PRINT "    Are You willing            "
+257 PRINT "    to accept the title <Y/N>  "
+258 INKEY I$
+259 IF I$="Y" OR I$="y" THEN 263
+260 IF I$="N" OR I$="n" THEN 198
+261 GOTO 258
+262 REM
+263 REM Title accepted
+264 REM
+265 CLS
+266 CUR 0,0
+267 PRINT "                               "
+268 PRINT "                               "
+269 PRINT "         SECRET OF THE         "
+270 PRINT "                               "
+271 PRINT "     PETALS AROUND THE ROSE    "
+272 PRINT "                               "
+273 PRINT "                               "
+274 PRINT "          EXCELLENT!           "
+275 PRINT "                               "
+276 PRINT "                               "
+277 PRINT "      AS A FULLY QUALIFIED     "
+278 PRINT "                               "
+279 PRINT "         AND CERTIFIED         "
+280 PRINT "                               "
+281 PRINT "     POTENTATE OF THE ROSE     "
+282 PRINT "                               "
+283 PRINT "       I HEREBY DUB YOU        "
+284 PRINT "                               "
+285 PRINT "    A POTENTATE OF THE ROSE,   "
+286 PRINT "                               "
+287 PRINT "      TO HOLD AND GUARD        "
+288 PRINT "                               "
+289 PRINT "      THE SECRET OF THE        "
+290 PRINT "                               "
+291 PRINT "   'PETALS AROUND THE ROSE'    "
+292 PRINT "                               "
+293 PRINT "           =======             "
+294 FOR I=1 TO 1000
+295 NEXT I
+296 END
+297 REM
+298 REM Instructions
+299 REM
+300 CLS
+301 CUR 0,0
+302 PRINT "                               "
+303 PRINT "                               "
+304 PRINT "        SECRET OF THE          "
+305 PRINT "                               "
+306 PRINT "    PETALS AROUND THE ROSE     "
+307 PRINT "                               "
+308 PRINT "  This is a test to determine  "
+309 PRINT "    if You are an individua    "
+310 PRINT "      worthy of the title      "
+311 PRINT "                               "
+312 PRINT "    'POTENTATE OF THE ROSE'    "
+313 PRINT "                               "
+314 PRINT "      Test is as follows:      "
+315 PRINT "                               "
+316 PRINT " Computer will roll five dices "
+317 PRINT " You must guess the score      "
+318 PRINT "                               "
+319 PRINT " On 6 correct guesses in a row "
+320 PRINT " I will assume that You have   "
+321 PRINT " discovered the secret and will"
+322 PRINT " grant You the honoured title  "
+323 PRINT "                               "
+324 PRINT "                               "
+325 PRINT "                               "
+326 PRINT " Hit any key to start the test "
+327 INKEY I$
+328 IF I$="" THEN 327
+329 RETURN
+330 REM
+331 REM Dice animation
+332 REM
+333 INV 1
+334 ON DN GOSUB 340,350,369,388,398,408
+335 FOR I=0 TO 300
+336 NEXT I
+337 INV 0
+338 RETURN
+339 REM
+340 REM One
+341 REM
+342 CUR PX,PY
+343 PRINT "   "
+344 CUR PX,PY+1
+345 PRINT " . "
+346 CUR PX,PY+2
+347 PRINT "   "
+348 RETURN
+349 REM
+350 REM Two
+351 REM
+352 D=RND(1)
+353 IF D=>0.5 THEN 361
+354 CUR PX,PY
+355 PRINT ".  "
+356 CUR PX,PY+1
+357 PRINT "   "
+358 CUR PX,PY+2
+359 PRINT "  ."
+360 RETURN
+361 CUR PX,PY
+362 PRINT "  ."
+363 CUR PX,PY+1
+364 PRINT "   "
+365 CUR PX,PY+2
+366 PRINT ".  "
+367 RETURN
+368 REM
+369 REM Three
+370 REM
+371 D=RND(1)
+372 IF D=>0.5 THEN 380
+373 CUR PX,PY
+374 PRINT ".  "
+375 CUR PX,PY+1
+376 PRINT " . "
+377 CUR PX,PY+2
+378 PRINT "  ."
+379 RETURN
+380 CUR PX,PY
+381 PRINT "  ."
+382 CUR PX,PY+1
+383 PRINT " . "
+384 CUR PX,PY+2
+385 PRINT ".  "
+386 RETURN
+387 REM
+388 REM Four
+389 REM
+390 CUR PX,PY
+391 PRINT ". ."
+392 CUR PX,PY+1
+393 PRINT "   "
+394 CUR PX,PY+2
+395 PRINT ". ."
+396 RETURN
+397 REM
+398 REM Five
+399 REM
+400 CUR PX,PY
+401 PRINT ". ."
+402 CUR PX,PY+1
+403 PRINT " . "
+404 CUR PX,PY+2
+405 PRINT ". ."
+406 RETURN
+407 REM
+408 REM Six
+409 REM
+410 D=RND(1)
+411 IF D=>0.5 THEN 419
+412 CUR PX,PY
+413 PRINT "..."
+414 CUR PX,PY+1
+415 PRINT "   "
+416 CUR PX,PY+2
+417 PRINT "..."
+418 RETURN
+419 CUR PX,PY
+420 PRINT ". ."
+421 CUR PX,PY+1
+422 PRINT ". ."
+423 CUR PX,PY+2
+424 PRINT ". ."
+425 RETURN
+426 VDU 0,31,0,31
+427 CLEAR
+428 END

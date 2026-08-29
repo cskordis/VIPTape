@@ -1,0 +1,631 @@
+10 REM ***********************
+20 REM *                     *
+30 REM * program : TABLA     *
+40 REM *                     *
+50 REM * Program namjenjen   *
+60 REM * za uklapanje        *
+70 REM * pravougaonih        *
+80 REM * elemenata na        *
+90 REM * ortogonalnoj tabli  *
+100 REM *                     *
+110 REM * Autor Peri| _eljko  *
+120 REM *                     *
+130 REM * peraelf@gmail.com   *
+140 REM *                     *
+150 REM * 09.06.2018 godine   *
+160 REM *                     *
+170 REM ***********************
+180 REM ---------------
+190 REM Dimenzije table
+200 REM ---------------
+210 Tl=2550:Tw=2550
+220 REM ---------------
+230 REM Brisanje ekrana
+240 REM ---------------
+250 MODE 0 : INV 0
+260 CLS
+270 REM -------------
+280 REM Prikaz menija
+290 REM -------------
+300 PRINT
+310 PRINT " ******************************"
+320 PRINT " *                            *"
+330 PRINT " *     T   A   B   L   A      *"
+340 PRINT " *                            *"
+350 PRINT " *                            *"
+360 PRINT " *  1. Dimenzije table        *"
+370 PRINT " *                            *"
+380 PRINT " *  2. Dimenzije elemenata    *"
+390 PRINT " *                            *"
+400 PRINT " *  3. Uklapanje elemenata    *"
+410 PRINT " *                            *"
+420 PRINT " *  4. Prikaz table           *"
+430 PRINT " *                            *"
+440 PRINT " *  5. Kraj rada              *"
+450 PRINT " *                            *"
+460 PRINT " *                            *"
+470 PRINT " ******************************"
+480 REM ---------------
+490 REM Izbor korisnika
+500 REM ---------------
+510 INKEY O$:IF VAL(O$)<1 OR VAL(O$)>5 THEN 510
+520 REM ------------
+530 REM Uslovni skok
+540 REM ------------
+550 ON VAL(O$) GOTO 620,1100,2490,5110,6290
+560 REM ----------------
+570 REM Povratak na meni
+580 REM ----------------
+590 GOTO 230
+600 REM ----------------
+610 REM --------------------
+620 REM Unos dimenzija table
+630 REM --------------------
+640 REM ---------------
+650 REM Brisanje ekrana
+660 REM ---------------
+670 MODE 0 : INV 0
+680 CLS
+690 REM ----
+700 REM Unos
+710 REM ----
+720 PRINT
+730 PRINT " ******************************"
+740 PRINT " *                            *"
+750 PRINT " *   Unos dimenzija table     *"
+760 PRINT " *                            *"
+770 PRINT " ******************************"
+780 PRINT
+790 REM ------
+800 REM Duina
+810 REM ------
+820 CUR 0,7
+830 PRINT SPC(30)
+840 CUR 0,7
+850 PRINT " Duina table : ";
+860 INPUT Tl
+870 REM --------------
+880 REM Proveri duinu
+890 REM --------------
+900 IF Tl<1 OR Tl>2551 THEN 800
+910 REM ------
+920 REM ^irina
+930 REM ------
+940 CUR 0,9
+950 PRINT SPC(30)
+960 CUR 0,9
+970 PRINT
+980 PRINT " ^irina table : ";
+990 INPUT Tw
+1000 REM --------------
+1010 REM Proveri ~irinu
+1020 REM --------------
+1030 IF Tw<1 OR Tw>2551 THEN 920
+1040 REM ----------------
+1050 REM Povratak na meni
+1060 REM ----------------
+1070 GOTO 230
+1080 REM ----------------
+1090 REM --------------
+1100 REM Unos dimenzija
+1110 REM elemenata
+1120 REM --------------
+1130 REM ----------------
+1140 REM Memori~i Tl i Tw
+1150 REM ----------------
+1160 i=INT(Tl/100)
+1170 n=Tl-(100*i)
+1180 POKE 23500,i
+1190 POKE 23501,n
+1200 i=INT(Tw/100)
+1210 n=Tw-(100*i)
+1220 POKE 23502,i
+1230 POKE 23503,n
+1240 REM -----------
+1250 REM Izbri~i sve
+1260 REM promenljive
+1270 REM -----------
+1280 CLEAR
+1290 REM --------------
+1300 REM U{itaj Tl i Tw
+1310 REM --------------
+1320 i=PEEK(23500)
+1330 n=PEEK(23501)
+1340 Tl=i*100+n
+1350 i=PEEK(23502)
+1360 n=PEEK(23503)
+1370 Tw=i*100+n
+1380 REM ---------------
+1390 REM Brisanje ekrana
+1400 REM ---------------
+1410 MODE 0 : INV 0
+1420 CLS
+1430 REM --------------
+1440 REM Unos dimenzija
+1450 REM --------------
+1460 PRINT
+1470 PRINT " ******************************"
+1480 PRINT " *                            *"
+1490 PRINT " *  Unos dimenzija elemenata  *"
+1500 PRINT " *                            *"
+1510 PRINT " ******************************"
+1520 PRINT
+1530 PRINT " Broj elemenata : ";
+1540 INPUT n
+1550 REM ---------------
+1560 REM Dimenzionisanje
+1570 REM nizova
+1580 REM ---------------
+1590 DIM E(n,3)
+1600 DIM P(n,3)
+1610 DIM T(n,3)
+1620 REM --------
+1630 REM Elementi
+1640 REM --------
+1650 CUR 0,10
+1660 PRINT " ********************"
+1670 FOR i=0 TO n-1
+1680 CUR 0,11
+1690 PRINT " ";i+1;". element :"
+1700 PRINT " ********************"
+1710 CUR 0,14
+1720 PRINT SPC(30)
+1730 CUR 0,14
+1740 PRINT " duina : ";
+1750 INPUT E(i,0)
+1760 IF E(i,0)<100 OR E(i,0)>Tl THEN 1710
+1770 CUR 0,16
+1780 PRINT SPC(30)
+1790 CUR 0,16
+1800 PRINT " ~irina : ";
+1810 INPUT E(i,1)
+1820 IF E(i,1)<100 OR E(i,1)>Tw THEN 1770
+1830 E(i,2)=E(i,0)*E(i,1)
+1840 E(i,3)=0
+1850 REM --------
+1860 REM Pozicije
+1870 REM --------
+1880 P(n,0)=0
+1890 P(n,1)=0
+1900 P(n,2)=0
+1910 P(n,3)=0
+1920 REM -----
+1930 REM Tabla
+1940 REM -----
+1950 T(n,0)=0
+1960 T(n,1)=0
+1970 T(n,2)=0
+1980 T(n,3)=0
+1990 REM ---------------
+2000 REM Slede|i element
+2010 REM ---------------
+2020 NEXT i
+2030 PRINT
+2040 PRINT " ********************"
+2050 REM -----------------
+2060 REM Poslednji element
+2070 REM -----------------
+2080 E(n,0)=0
+2090 E(n,1)=0
+2100 E(n,2)=0
+2110 E(n,3)=0
+2120 REM ------------------
+2130 REM Poslednja pozicija
+2140 REM ------------------
+2150 P(n,0)=0
+2160 P(n,1)=0
+2170 P(n,2)=0
+2180 P(n,3)=0
+2190 REM -----------------
+2200 REM Poslednji element
+2210 REM na tabli
+2220 REM -----------------
+2230 T(n,0)=0
+2240 T(n,1)=0
+2250 T(n,2)=0
+2260 T(n,3)=0
+2270 REM --------------
+2280 REM Sort elemenata
+2290 REM --------------
+2300 PRINT " Sortiranje elemenata"
+2310 GOSUB 5600
+2320 PRINT " ********************"
+2330 REM -------------
+2340 REM Sort pozicija
+2350 REM -------------
+2360 PRINT " Sortiranje pozicija"
+2370 GOSUB 5970
+2380 PRINT " ********************"
+2390 REM -----
+2400 REM Pauza
+2410 REM -----
+2420 INKEY O$:IF O$="" THEN 2420
+2430 REM ----------------
+2440 REM Povratak na meni
+2450 REM ----------------
+2460 GOTO 230
+2470 REM ----------------
+2480 REM -------------------
+2490 REM Uklapanje elemenata
+2500 REM -------------------
+2510 REM ------------------
+2520 REM Ako nema elemenata
+2530 REM ------------------
+2540 IF n=0 THEN 230
+2550 REM ---------------
+2560 REM Brisanje ekrana
+2570 REM ---------------
+2580 MODE 0 : INV 0
+2590 CLS
+2600 REM ----------------
+2610 REM Poruka uklapanje
+2620 REM ----------------
+2630 PRINT
+2640 PRINT " ******************************"
+2650 PRINT " *                            *"
+2660 PRINT " *    Uklapanje elemenata     *"
+2670 PRINT " *                            *"
+2680 PRINT " ******************************"
+2690 PRINT
+2700 PRINT "  rb. duina  ~irina  povr~ina"
+2710 PRINT " ******************************"
+2720 REM ---------------
+2730 REM Broja{ pozicija
+2740 REM ---------------
+2750 k=0
+2760 REM -------------
+2770 REM Prva pozicija
+2780 REM -------------
+2790 P(0,0)=0
+2800 P(0,1)=0
+2810 P(0,2)=Tl
+2820 P(0,3)=Tw
+2830 REM -------------------
+2840 REM Broja{ uklopljenih
+2850 REM elemenata
+2860 REM -------------------
+2870 p=0
+2880 REM -------------
+2890 REM Broja{ redova
+2900 REM -------------
+2910 r=1
+2920 REM -------------
+2930 REM Uslov za kraj
+2940 REM uklapanja
+2950 REM -------------
+2960 IF k>-1 AND n>0 THEN 3110
+2970 REM ------------------
+2980 REM Uklapanje zavr~eno
+2990 REM ------------------
+3000 PRINT " ******************************"
+3010 REM -----
+3020 REM Pauza
+3030 REM -----
+3040 INKEY O$:IF O$="" THEN 3040
+3050 REM ----------------
+3060 REM Povratak na meni
+3070 REM ----------------
+3080 GOTO 230
+3090 REM ----------------
+3100 REM -----------------
+3110 REM Nastavi uklapanje
+3120 REM -----------------
+3130 REM -------------
+3140 REM Sort pozicija
+3150 REM -------------
+3160 GOSUB 5970
+3170 REM --------------
+3180 REM Odredi faktore
+3190 REM uklapanja
+3200 REM --------------
+3210 FOR i=0 TO n-1
+3220 REM --------------
+3230 REM Po{etni faktor
+3240 REM --------------
+3250 f=0
+3260 REM ----------------
+3270 REM Da li je element
+3280 REM ve|i od pozicije
+3290 REM ----------------
+3300 IF E(i,0)>P(0,2) OR E(i,1)>P(0,3) THEN 3410
+3310 REM ------------------
+3320 REM Element je uklopiv
+3330 REM ------------------
+3340 f=f+1
+3350 REM -----------------
+3360 REM Da li je BEST FIT
+3370 REM -----------------
+3380 IF E(i,0)=P(0,2) THEN f=f+1
+3390 IF E(i,1)=P(0,3) THEN f=f+1
+3400 REM -------------
+3410 REM Upamti faktor
+3420 REM -------------
+3430 E(i,3)=f
+3440 REM -----------
+3450 REM Kraj petlje
+3460 REM -----------
+3470 NEXT i
+3480 REM --------------
+3490 REM Sort elemenata
+3500 REM --------------
+3510 GOSUB 5600
+3520 REM ------------
+3530 REM Prvi element
+3540 REM ------------
+3550 f=E(0,3)
+3560 IF f>0 THEN 3640
+3570 REM -------------
+3580 REM Pozicija nema
+3590 REM uklopivih
+3600 REM elemenata
+3610 REM -------------
+3620 GOTO 4910
+3630 REM ----------
+3640 REM Element je
+3650 REM uklopiv
+3660 REM ----------
+3670 l=E(0,0)
+3680 w=E(0,1)
+3690 REM -------------
+3700 REM Ubaci element
+3710 REM na tablu
+3720 REM -------------
+3730 T(p,0)=P(0,0)
+3740 T(p,1)=P(0,1)
+3750 T(p,2)=l
+3760 T(p,3)=w
+3770 p=p+1
+3780 REM ---------------
+3790 REM Prikazi element
+3800 REM ---------------
+3810 CUR 3,r+8
+3820 IF p<32 THEN PRINT CHR$(64+p)
+3830 IF P>31 THEN PRINT CHR$(64+p+1)
+3840 IF l>9 AND l<100 THEN CUR 8,r+8
+3850 IF l>99 AND l<1000 THEN CUR 7,r+8
+3860 IF l>999 THEN CUR 6,r+8
+3870 PRINT l
+3880 IF w>9 AND w<100 THEN CUR 16,r+8
+3890 IF w>99 AND w<1000 THEN CUR 15,r+8
+3900 IF w>999 THEN CUR 14,r+8
+3910 PRINT w
+3920 ar=l*w
+3930 IF ar>99 AND ar<1000 THEN CUR 26,r+8
+3940 IF ar>999 AND ar<10000 THEN CUR 25,r+8
+3950 IF ar>9999 AND ar<100000 THEN CUR 24,r+8
+3960 IF ar>99999 AND ar<1000000 THEN CUR 23,r+8
+3970 IF ar>999999 AND ar<10000000 THEN CUR 22,r+8
+3980 PRINT ar
+3990 r=r+1
+4000 IF r<21 THEN 4130
+4010 PRINT " ******************************"
+4020 REM -----
+4030 REM Pauza
+4040 REM -----
+4050 INKEY O$:IF O$="" THEN 4050
+4060 IF n<2 THEN 4130
+4070 FOR i=r TO 1 STEP -1
+4080 CUR 0,i+8
+4090 PRINT SPC(31)
+4100 NEXT i
+4110 r=1
+4120 REM ---------------
+4130 REM Izbri~i element
+4140 REM ---------------
+4150 FOR i=0 TO n-1
+4160 E(i,0)=E(i+1,0)
+4170 E(i,1)=E(i+1,1)
+4180 E(i,2)=E(i+1,2)
+4190 E(i,3)=E(i+1,3)
+4200 NEXT i
+4210 n=n-1
+4220 REM -------------
+4230 REM Da li ima jo~
+4240 REM elemenata za
+4250 REM uklapanje
+4260 REM -------------
+4270 IF n=0 THEN 4910
+4280 REM ----------------
+4290 REM Nova pozicija II
+4300 REM ----------------
+4310 IF P(0,3)<=w THEN 4570
+4320 REM -----------
+4330 REM Pozicija II
+4340 REM -----------
+4350 X2 = P(0,0)
+4360 Y2 = P(0,1) + w
+4370 L2 = Tl - X2
+4380 W2 = P(0,3) - w
+4390 REM -------------
+4400 REM Da li postoji
+4410 REM element koji
+4420 REM se uklapa
+4430 REM -------------
+4440 FOR i=0 TO n-1
+4450 IF E(i,0)>L2 OR E(i,1)>W2 THEN NEXT i:P(0,3)=0:GOTO 4570
+4460 REM ----------
+4470 REM Ubaci novu
+4480 REM poziciju
+4490 REM na listu
+4500 REM ----------
+4510 k = k + 1
+4520 P(k,0) = X2
+4530 P(k,1) = Y2
+4540 P(k,2) = L2
+4550 P(k,3) = W2
+4560 REM ---------------
+4570 REM Nova pozicija I
+4580 REM ---------------
+4590 IF P(0,2)<=l THEN 4910
+4600 REM ----------
+4610 REM Pozicija I
+4620 REM ----------
+4630 X1 = P(0,0) + l
+4640 Y1 = P(0,1)
+4650 L1 = Tl - X1
+4660 W1 = w
+4670 REM ---------------
+4680 REM Prilago}avanje
+4690 REM ~irine I
+4700 REM pozicije
+4710 REM ---------------
+4720 IF P(0,3)=0 THEN W1=W1+W2
+4730 REM -------------
+4740 REM Da li postoji
+4750 REM element koji
+4760 REM se uklapa
+4770 REM -------------
+4780 FOR i=0 TO n-1
+4790 IF E(i,0)>L1 OR E(i,1)>W1 THEN NEXT i:GOTO 4910
+4800 REM ----------
+4810 REM Ubaci novu
+4820 REM poziciju
+4830 REM na listu
+4840 REM ----------
+4850 k = k + 1
+4860 P(k,0) = X1
+4870 P(k,1) = Y1
+4880 P(k,2) = L1
+4890 P(k,3) = W1
+4900 REM -------------
+4910 REM Da li ima jo~
+4920 REM elemenata za
+4930 REM uklapanje
+4940 REM -------------
+4950 IF n=0 THEN 2930
+4960 REM ------------
+4970 REM Izbri~i prvu
+4980 REM poziciju sa
+4990 REM liste
+5000 REM ------------
+5010 FOR i=0 TO k-1
+5020 P(i,0)=P(i+1,0)
+5030 P(i,1)=P(i+1,1)
+5040 P(i,2)=P(i+1,2)
+5050 P(i,3)=P(i+1,3)
+5060 NEXT i
+5070 k=k-1
+5080 GOTO 2930
+5090 REM ------------
+5100 REM ------------
+5110 REM Prikaz table
+5120 REM ------------
+5130 REM ---------------
+5140 REM Brisanje ekrana
+5150 REM ---------------
+5160 MODE 0 : INV 0
+5170 CLS
+5180 REM --------------
+5190 REM Nacrtaj praznu
+5200 REM tablu
+5210 REM --------------
+5220 MOVE 0,0
+5230 DRAW Tl/10,0
+5240 DRAW Tl/10,Tw/10
+5250 DRAW 0,Tw/10
+5260 DRAW 0,0
+5270 REM ----------
+5280 REM Nacrtaj
+5290 REM uklopljene
+5300 REM elemente
+5310 REM ----------
+5320 IF p=0 THEN 5530
+5330 FOR i=0 TO p-1
+5340 X1=T(i,0)/10
+5350 Y1=T(i,1)/10
+5360 X2=(T(i,0)+T(i,2))/10
+5370 Y2=(T(i,1)+T(i,3))/10
+5380 MOVE X1,Y1
+5390 DRAW X2,Y1
+5400 DRAW X2,Y2
+5410 DRAW X1,Y2
+5420 DRAW X1,Y1
+5430 REM ------------
+5440 REM Rb. elementa
+5450 REM ------------
+5460 MOVE X1+1,Y1+1
+5470 IF i<31 THEN LETTER CHR$(65+i),1,0
+5480 IF i>30 THEN LETTER CHR$(65+i+1),1,0
+5490 NEXT i
+5500 REM -----
+5510 REM Pauza
+5520 REM -----
+5530 INKEY O$:IF O$="" THEN 5530
+5540 REM ----------------
+5550 REM Povratak na meni
+5560 REM ----------------
+5570 GOTO 230
+5580 REM ----------------
+5590 REM ----------------
+5600 REM Sort elemenata
+5610 REM faktor uklapanja
+5620 REM povrsina,duina
+5630 REM ~irina opadaju|e
+5640 REM ----------------
+5650 FOR a=0 TO n-2
+5660 FOR b=a+1 TO n-1
+5670 IF E(a,3)>E(b,3) THEN 5890
+5680 IF E(a,3)<E(b,3) THEN 5750
+5690 IF E(a,2)>E(b,2) THEN 5890
+5700 IF E(a,2)<E(b,2) THEN 5750
+5710 IF E(a,0)>E(b,0) THEN 5890
+5720 IF E(a,0)<E(b,0) THEN 5750
+5730 IF E(a,1)=>E(b,1) THEN 5890
+5740 REM ------------
+5750 REM Zameni mesta
+5760 REM ------------
+5770 c=E(b,0)
+5780 E(b,0)=E(a,0)
+5790 E(a,0)=c
+5800 c=E(b,1)
+5810 E(b,1)=E(a,1)
+5820 E(a,1)=c
+5830 c=E(b,2)
+5840 E(b,2)=E(a,2)
+5850 E(a,2)=c
+5860 c=E(b,3)
+5870 E(b,3)=E(a,3)
+5880 E(a,3)=c
+5890 NEXT b
+5900 NEXT a
+5910 REM --------
+5920 REM Povratak
+5930 REM --------
+5940 RETURN
+5950 REM --------
+5960 REM -------------
+5970 REM Sort pozicija
+5980 REM Y osa, X osa
+5990 REM rastu|e
+6000 REM -------------
+6010 FOR a=0 TO k-1
+6020 FOR b=a+1 TO k
+6030 IF P(a,1)<P(b,1)  THEN 6210
+6040 IF P(a,1)>P(b,1)  THEN 6070
+6050 IF P(a,0)=>P(b,0) THEN 6210
+6060 REM ------------
+6070 REM Zameni mesta
+6080 REM ------------
+6090 c=P(b,0)
+6100 P(b,0)=P(a,0)
+6110 P(a,0)=c
+6120 c=P(b,1)
+6130 P(b,1)=P(a,1)
+6140 P(a,1)=c
+6150 c=P(b,2)
+6160 P(b,2)=P(a,2)
+6170 P(a,2)=c
+6180 c=P(b,3)
+6190 P(b,3)=P(a,3)
+6200 P(a,3)=c
+6210 NEXT b
+6220 NEXT a
+6230 REM --------
+6240 REM Povratak
+6250 REM --------
+6260 RETURN
+6270 REM --------
+6280 REM ---------
+6290 REM Kraj rada
+6300 REM ---------
+6310 END

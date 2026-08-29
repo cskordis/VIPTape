@@ -1,0 +1,32 @@
+10 REM *********************
+11 REM *     SPRITE CODE   *
+12 REM *********************
+13 DATA 255,255,128,1,184,29,168,21,184,29,132,33,131,193,130,65
+14 DATA 130,65,131,193,132,33,184,29,168,21,184,29,128,1,255,255
+15 REM *********************
+16 REM *     DRAW SPRITE   *
+17 REM *********************
+18 REM
+19 REM Set sprite code to
+20 REM memory, starting at
+21 REM address 4096 decimal
+22 REM $1000 hexadecimal
+23 REM
+24 CLEAR
+25 RESTORE
+26 S=4096
+27 FOR I=0 TO 31
+28 READ J
+29 POKE S+I,J
+30 NEXT I
+31 REM
+32 REM Draw sprite at
+33 REM coordinates 100,100
+34 REM
+35 CLS
+36 X=100
+37 Y=100
+38 MOVE X,Y
+39 SMOVE 0,S
+40 END
+

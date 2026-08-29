@@ -1,0 +1,14 @@
+100 REM ********************
+102 REM *                  *
+104 REM *     IGRICA       *
+106 REM *                  *
+108 REM ********************
+110 REM
+112 REM Globalne Promenljive
+114 REM
+116 CLS
+118 PRINT "*********************"
+120 PRINT
+122 PRINT "KAMEN - ^KARE - PAPIR"
+124 PRINT
+126 PRINT "*********************"
