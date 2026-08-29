@@ -21,7 +21,7 @@ Version 4c Added plain hex delimited by space file with extension *.txt for the 
 
 Version 5  Added TRS-80 Pocket Computer PC1 and PC2
 
-Version 5a Corrected messaging when processing large programs
+Version 5a Corrected messaging when processing large programs. Renamed to VIPTAPE II
 
 ## Hardware modifications for version 2b:
 
