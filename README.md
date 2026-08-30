@@ -23,7 +23,24 @@ Version 5  Added TRS-80 Pocket Computer PC1 and PC2
 
 Version 5a Corrected messaging when processing large programs. Renamed to VIPTAPE II
 
-## Hardware modifications for version 2b:
+## Summary of prototols:
+COMX35
+
+Cosmac VIP and VIP-S
+
+ELF II
+
+Heathkit ET3400
+
+HUG 1802/ETI-660/HEC-1802
+
+Generic Kansas Citity Standard 300/1200
+
+Orao
+
+TRS-80 Pocket Computer PC1 and PC2
+
+## Hardware modifications from original:
 
 1. Enhance the LM358 op amp circuit to utilize the first op amp as a low pass filtering amp for >2500hz frequencies and second op amp as a comparator to deliver nicely formed square wares that are 3.5 v p/p.
 
