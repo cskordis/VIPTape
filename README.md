@@ -23,6 +23,8 @@ Version 5  Added TRS-80 Pocket Computer PC1 and PC2
 
 Version 5a Corrected messaging when processing large programs. Renamed to VIPTAPE II
 
+Version 5b Deletion of files when highlighted and No button pressed for > 1.2 seconds.
+
 ## Summary of prototols:
 COMX35
 
