@@ -25,6 +25,10 @@ Version 5a Corrected messaging when processing large programs. Renamed to VIPTAP
 
 Version 5b Deletion of files when highlighted and No button pressed for > 1.2 seconds.
 
+Version 5c Correct saving of last protocol to SD card.
+
+Version 5d Update messaging to include filename.      
+
 ## Summary of prototols:
 COMX35
 
